@@ -1,7 +1,11 @@
 package com.ideascontest.navi.uask;
 
+import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.google.gson.Gson;
 
 public class Utilities {
 	/**
@@ -16,7 +20,7 @@ public class Utilities {
     }
  
     /**
-     * Method to construct JSON
+     * Overloaded Method to construct JSON
      * 
      * @param tag
      * @param status
@@ -32,7 +36,25 @@ public class Utilities {
         }
         return obj.toString();
     }
- 
+
+    /**
+     * Overloaded Method to construct JSON
+     * 
+     * @param arraylist
+     * @return
+     */
+    public static String constructJSON(ArrayList<?> list) {
+    	String jsonString = null;
+    	
+    	try {
+        	jsonString = new Gson().toJson(list);
+        	System.out.println(jsonString);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+        }
+        return jsonString;
+    }
+
     /**
      * Method to construct JSON with Error Msg
      * 
@@ -52,5 +74,4 @@ public class Utilities {
         }
         return obj.toString();
     }
-
 }
