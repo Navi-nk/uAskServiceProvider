@@ -9,8 +9,9 @@ public class Questions {
 	private String _Answer;
 	private String _Used_Id;
 	private String _Ans_User_Id;
+	private Integer _Number_Answers;
 	
-	public Questions(String Id,String Text,String Datetime,String Category,Boolean Flag,String Answer,String UserId,String answers_userid) {
+	public Questions(String Id,String Text,String Datetime,String Category,Boolean Flag,String Answer,String UserId,String answers_userid,Integer number_answers ) {
 		// TODO Auto-generated constructor stub
 		_Id=Id;
 		_Text=Text;
@@ -20,6 +21,7 @@ public class Questions {
 		_Answer=Answer;
 		_Used_Id=UserId;
 		_Ans_User_Id = answers_userid;
+		_Number_Answers = number_answers;
 	}
 	public String get_Id() {
 		return _Id;
@@ -68,6 +70,12 @@ public class Questions {
 	}
 	public void set_Ans_User_Id(String _Ans_User_Id) {
 		this._Ans_User_Id = _Ans_User_Id;
+	}
+	public Integer get_Number_Answers() {
+		return _Number_Answers;
+	}
+	public void set_Number_Answers(Integer _Number_Answers) {
+		this._Number_Answers = _Number_Answers;
 	}
 
 }

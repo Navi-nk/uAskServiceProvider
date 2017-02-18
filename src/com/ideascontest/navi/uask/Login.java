@@ -1,6 +1,8 @@
 package com.ideascontest.navi.uask;
 
-	import javax.ws.rs.GET;
+	import java.util.ArrayList;
+
+import javax.ws.rs.GET;
 	import javax.ws.rs.Path;
 	import javax.ws.rs.Produces;
 	import javax.ws.rs.QueryParam;
@@ -17,8 +19,15 @@ package com.ideascontest.navi.uask;
 	    // Query parameters are parameters: http://localhost/<appln-folder-name>/login/dologin?username=abc&password=xyz
 	    public String doLogin(@QueryParam("username") String uname, @QueryParam("password") String pwd){
 	        String response = "";
+	        ArrayList<Users> users = null;
 	        if(checkCredentials(uname, pwd)){
-	            response = Utilities.constructJSON("login",true);
+	        	try {
+					users = DbConnection.getUsers(uname);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            response = Utilities.constructJSON("login",true,users);
 	        }else{
 	            response = Utilities.constructJSON("login", false, "Incorrect Email or Password");
 	        }

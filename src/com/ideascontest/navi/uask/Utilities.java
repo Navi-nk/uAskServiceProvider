@@ -2,12 +2,25 @@ package com.ideascontest.navi.uask;
 
 import java.util.ArrayList;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
 public class Utilities {
+	private String tag;
+	private boolean status;
+	private ArrayList<?> res;
+	
+	
+	public Utilities(String tagname,boolean status,ArrayList<?> resobj)
+	{
+		this.tag = tagname;
+		this.status = status;
+		this.res = resobj; 
+	}
+	
 	/**
 	 * Null check Method
      * 
@@ -43,13 +56,33 @@ public class Utilities {
      * @param arraylist
      * @return
      */
+    public static String constructJSON(String tag, boolean status,ArrayList<?> list) {
+    	String jsonString = null;
+    	try {
+    		
+    		Utilities uobj = new Utilities(tag, status, list );
+        	jsonString = new Gson().toJson(uobj);
+        	System.out.println(jsonString);
+             
+    	} catch (Exception e) {
+            // TODO Auto-generated catch block
+        }
+        return jsonString;
+    }
+    /**
+     * Overloaded Method to construct JSON
+     * 
+     * @param arraylist
+     * @return
+     */
     public static String constructJSON(ArrayList<?> list) {
     	String jsonString = null;
-    	
-    	try {
+    	try {	
+    		//Utilities uobj = new Utilities("login", true, list );
         	jsonString = new Gson().toJson(list);
         	System.out.println(jsonString);
-        } catch (Exception e) {
+             
+    	} catch (Exception e) {
             // TODO Auto-generated catch block
         }
         return jsonString;
@@ -75,3 +108,4 @@ public class Utilities {
         return obj.toString();
     }
 }
+

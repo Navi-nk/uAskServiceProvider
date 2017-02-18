@@ -113,6 +113,52 @@ public class DbConnection {
         return insertStatus;
     }
 
+    /**
+     * Method to get user data
+     * 
+     * @param 
+     * @return 
+     * @throws SQLException
+     * @throws Exception
+     */
+public static ArrayList<Users> getUsers(String userName) throws SQLException, Exception {
+	
+	ArrayList<Users> userlist = new ArrayList<Users>();
+	 
+    Connection dbConn = null;
+    try {
+        try {
+            dbConn = DbConnection.createConnection();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Statement stmt = dbConn.createStatement();
+
+        String query = " SELECT name, email,faculty from users where name='"+userName+"'";
+        System.out.println(query);
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {
+            Users user= new Users(rs.getString(1), rs.getString(2), null, rs.getString(3));
+            userlist.add(user);
+        }
+    } catch (SQLException sqle) {
+        throw sqle;
+    } catch (Exception e) {
+        // TODO Auto-generated catch block
+        if (dbConn != null) {
+            dbConn.close();
+        }
+        throw e;
+    } finally {
+        if (dbConn != null) {
+            dbConn.close();
+        }
+    }
+
+	return userlist;
+}
+
 
     /**
      * Method to get all questions from DB
@@ -135,11 +181,11 @@ public static ArrayList<Questions> getAllQuestions() throws SQLException, Except
             e.printStackTrace();
         }
         Statement stmt = dbConn.createStatement();
-        String query = " SELECT q.Question_Id,q.Question_Text,q.Question_Datetime,q.Question_Category,q.Question_Flag,IFNULL(a.Answer_text,0),q.Used_Id,a.answer_userid FROM questions q LEFT OUTER JOIN answers a ON q.Question_Id=a.Question_Id AND q.Answer_Id=a.Answer_Id ORDER BY q.Question_Datetime DESC";
+        String query = " SELECT q.Question_Id,q.Question_Text,q.Question_Datetime,q.Question_Category,q.Question_Flag,IFNULL(a.Answer_text,0),q.Used_Id,a.answer_userid,qc.cnt FROM questions q LEFT OUTER JOIN answers a ON q.Question_Id=a.Question_Id AND q.Answer_Id=a.Answer_Id LEFT OUTER JOIN (select count(1) cnt,question_id from answers group by question_id) qc ON q.question_id=qc.question_id ORDER BY q.Question_Datetime DESC;";
         System.out.println(query);
         ResultSet rs = stmt.executeQuery(query);
         while (rs.next()) {
-            Questions q = new Questions(Integer.toString(rs.getInt(1)), rs.getString(2), rs.getDate(3).toString(), rs.getString(4), rs.getBoolean(5), rs.getString(6), Integer.toString(rs.getInt(7)),Integer.toString(rs.getInt(8)));
+            Questions q = new Questions(Integer.toString(rs.getInt(1)), rs.getString(2), rs.getDate(3).toString(), rs.getString(4), rs.getBoolean(5), rs.getString(6), Integer.toString(rs.getInt(7)),rs.getString(8),rs.getInt(9));
             allQuestions.add(q);
         }
     } catch (SQLException sqle) {
@@ -185,7 +231,7 @@ public static ArrayList<Answers> getAllAnswers(String qID) throws SQLException, 
         //System.out.println(query);
         ResultSet rs = stmt.executeQuery(query);
         while (rs.next()) {
-            Answers a = new Answers(Integer.toString(rs.getInt(1)), rs.getString(2), rs.getDate(3).toString(), Integer.toString(rs.getInt(4)),Integer.toString(rs.getInt(5)));
+            Answers a = new Answers(Integer.toString(rs.getInt(1)), rs.getString(2), rs.getDate(3).toString(), Integer.toString(rs.getInt(4)),rs.getString(5));
             allAnswers.add(a);
         }
     } catch (SQLException sqle) {

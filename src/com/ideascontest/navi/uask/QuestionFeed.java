@@ -40,11 +40,11 @@ public class QuestionFeed {
 
  // HTTP Get Method
     @GET
-    // Path: http://localhost/<appln-folder-name>/qfeed/getfeed
+    // Path: http://localhost/<appln-folder-name>/getans
     @Path("/getans")
     // Produces JSON as response
     @Produces(MediaType.APPLICATION_JSON) 
-    // Query parameters are parameters: http://localhost/<appln-folder-name>/qfeed/getfeed
+    // Query parameters are parameters: http://localhost/<appln-folder-name>/getans?
     public String getAnswers(@QueryParam("question") String qID){
         String response = "";
         ArrayList<Answers> qAns = new ArrayList<Answers>();
@@ -71,7 +71,8 @@ public class QuestionFeed {
     // Query parameters are parameters: http://localhost/<appln-folder-name>/qfeed/getfeed
     public String askQuestions(@QueryParam("question") String qText, @QueryParam("category") String qCat, @QueryParam("flag") boolean qFlag,@QueryParam("userId") String uId){
         String response = "";
-        Questions question = new Questions(null, qText, null, qCat, qFlag, "0", uId,"0");
+        Questions question = new Questions(null, qText, null, qCat, qFlag, "0", uId,"0", 0);
+        
         try {
 			if(DbConnection.insertQuestionDetails(question)){
 			    response = Utilities.constructJSON("query",true);
