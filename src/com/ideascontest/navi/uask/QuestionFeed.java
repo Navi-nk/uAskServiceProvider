@@ -41,7 +41,7 @@ public class QuestionFeed {
 
 	// HTTP Get Method
 	@GET
-	// Path: http://localhost/<appln-folder-name>/getans
+	// Path: http://localhost/<appln-folder-name>/qfeed/getans
 	@Path("/getans")
 	// Produces JSON as response
 	@Produces(MediaType.APPLICATION_JSON) 

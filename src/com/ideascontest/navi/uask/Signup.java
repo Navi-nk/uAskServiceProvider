@@ -15,9 +15,9 @@ public class Signup {
     // Produces JSON as response
     @Produces(MediaType.APPLICATION_JSON) 
     // Query parameters are parameters: http://host/<appln-folder-name>/signup/doregister?username=abc&email=abc@xyz&password=mnp&faculty=123
-    public String doRegister(@QueryParam("username") String uname, @QueryParam("email") String email,@QueryParam("password") String pwd, @QueryParam("faculty") String faculty){
+    public String doRegister(@QueryParam("username") String uname, @QueryParam("email") String email, @QueryParam("faculty") String faculty){
         String response = "";
-        Users usrObject = new Users(uname, email, pwd, faculty);
+        Users usrObject = new Users(uname, email, "NA", faculty);
         try {
 			if(DbConnection.insertUser(usrObject)){
 			    response = Utilities.constructJSON("register",true);

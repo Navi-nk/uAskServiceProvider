@@ -90,8 +90,8 @@ public class DbConnection {
 				e.printStackTrace();
 			}
 			Statement stmt = dbConn.createStatement();
-			String query = "INSERT into users(name, email, password,faculty) values('"+usrObject.get_name()+ "',"+"'"
-					+ usrObject.get_email() + "','" + usrObject.get_pwd() + "','" + usrObject.get_faculty() + "')";
+			String query = "INSERT into users(name, email,faculty) values('"+usrObject.get_name()+ "',"+"'"
+					+ usrObject.get_email() +  "','" + usrObject.get_faculty() + "')";
 			System.out.println(query);
 			int records = stmt.executeUpdate(query);
 			//System.out.println(records);
