@@ -38,6 +38,31 @@ public class QuestionFeed {
 		}
 		return response;        
 	}
+	
+	// HTTP Get Method
+		@GET
+		// Path: http://localhost/<appln-folder-name>/qfeed/getsearchfeed
+		@Path("/getsearchfeed")
+		// Produces JSON as response
+		@Produces(MediaType.APPLICATION_JSON) 
+		// Query parameters are parameters: http://localhost/<appln-folder-name>/qfeed/getsearchfeed?
+		public String getSearchedQuestions(@QueryParam("searchstring") String searchString){
+			String response = "";
+			ArrayList<Questions> qFeed = new ArrayList<Questions>();
+			try {
+				qFeed = DbConnection.getAllQuestions(searchString);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(!qFeed.isEmpty()){
+				response = Utilities.constructJSON(qFeed);
+			}else{
+				response = Utilities.constructJSON("feed", false, "Feed not available");
+			}
+			return response;        
+		}
+	
 
 	// HTTP Get Method
 	@GET
