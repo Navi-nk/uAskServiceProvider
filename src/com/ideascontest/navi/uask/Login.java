@@ -28,7 +28,10 @@ import javax.ws.rs.GET;
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	            response = Utilities.constructJSON("login",true,users);
+	        	if(!users.isEmpty())
+	        		response = Utilities.constructJSON("login",true,users);
+	        	else
+	        		response = Utilities.constructJSON("login", false, "Incorrect Email or Password");
 	        }else{
 	            response = Utilities.constructJSON("login", false, "Incorrect Email or Password");
 	        }

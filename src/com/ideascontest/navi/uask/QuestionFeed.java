@@ -45,7 +45,7 @@ public class QuestionFeed {
 		@Path("/getsearchfeed")
 		// Produces JSON as response
 		@Produces(MediaType.APPLICATION_JSON) 
-		// Query parameters are parameters: http://localhost/<appln-folder-name>/qfeed/getsearchfeed?
+		// Query parameters are parameters: http://localhost/<appln-folder-name>/qfeed/getsearchfeed?searchstring=
 		public String getSearchedQuestions(@QueryParam("searchstring") String searchString){
 			String response = "";
 			ArrayList<Questions> qFeed = new ArrayList<Questions>();
