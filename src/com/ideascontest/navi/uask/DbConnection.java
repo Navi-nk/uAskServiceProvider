@@ -47,8 +47,7 @@ public class DbConnection {
 				e.printStackTrace();
 			}
 			Statement stmt = dbConn.createStatement();
-			String query = "SELECT name,email,faculty FROM users WHERE name = '" + uname
-					+ "' AND password=" + "'" + pwd + "'";
+			String query = "SELECT name,email,faculty FROM users WHERE name = '" + uname+ "'";
 			System.out.println(query);
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()) {

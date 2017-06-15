@@ -21,8 +21,9 @@ import javax.ws.rs.GET;
 	    public String doLogin(@QueryParam("username") String uname, @QueryParam("password") String pwd){
 	        String response = "";
 	        ArrayList<Users> users = null;
-	        if(byPass || checkCredentials(uname, pwd)){
-	        	try {
+	       // if(byPass || checkCredentials(uname, pwd)){
+	        if(byPass){	
+	        try {
 					users = DbConnection.getUsers(uname);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
